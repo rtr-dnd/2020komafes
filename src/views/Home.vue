@@ -32,7 +32,7 @@
     <section class="case resid">
       <h2 class="case resid">住宅街</h2>
       <h3 class="case resid">RESIDENTIAL AREA</h3>
-      <p class="case resid">
+      <p class="case resid"> <!-- todo -->
         4限終わり。<br>
         たったひとつ楽しみがあるだけで、<br>
         こんなに足取りの軽くなる、黄金色の世界。<br>
@@ -48,7 +48,7 @@
     <section class="case country">
       <h2 class="case country">田舎</h2>
       <h3 class="case country">COUNTRYSIDE</h3>
-      <p class="case country">
+      <p class="case country"> <!-- todo -->
         4限終わり。<br>
         たったひとつ楽しみがあるだけで、<br>
         こんなに足取りの軽くなる、黄金色の世界。<br>
