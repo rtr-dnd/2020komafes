@@ -23,9 +23,11 @@
       </p>
       <button class="sound">音声</button>
       <img src="" alt="" class="img-case">
-      <button class="to-case">
-        都会で帰り道を作る
-      </button>
+      <a href="./case/urban">
+        <button class="to-case">
+          都会で帰り道を作る
+        </button>
+      </a>
     </section>
     <section class="case resid">
       <h2 class="case resid">住宅街</h2>
@@ -37,9 +39,11 @@
       </p>
       <button class="sound">音声</button>
       <img src="" alt="" class="img-case">
-      <button class="to-case">
-        住宅街で帰り道を作る
-      </button>
+      <a href="./case/resid">
+        <button class="to-case">
+          住宅街で帰り道を作る
+        </button>
+      </a>
     </section>
     <section class="case country">
       <h2 class="case country">田舎</h2>
@@ -51,9 +55,11 @@
       </p>
       <button class="sound">音声</button>
       <img src="" alt="" class="img-case">
-      <button class="to-case">
-        田舎で帰り道を作る
-      </button>
+      <a href="./case/country">
+        <button class="to-case">
+          田舎で帰り道を作る
+        </button>
+      </a>
     </section>
     <footer>
       <img src="" alt="" class="logo">
