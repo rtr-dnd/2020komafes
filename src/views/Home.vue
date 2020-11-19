@@ -41,9 +41,9 @@
         <h2 class="case resid">住宅街</h2>
         <h3 class="case resid">RESIDENTIAL AREA</h3>
         <p class="case resid"> <!-- todo -->
-          4限終わり。<br>
-          たったひとつ楽しみがあるだけで、<br>
-          こんなに足取りの軽くなる、黄金色の世界。<br>
+          いつもよりちょっと早い帰路には<br>
+          見慣れた制服。<br>
+          そっか、君たちが私の後輩なんだね。<br>
         </p>
         <button class="sound">音声</button>
         <img src="" alt="" class="img-case">
@@ -61,9 +61,10 @@
         <h2 class="case country">田舎</h2>
         <h3 class="case country">COUNTRYSIDE</h3>
         <p class="case country"> <!-- todo -->
-          4限終わり。<br>
-          たったひとつ楽しみがあるだけで、<br>
-          こんなに足取りの軽くなる、黄金色の世界。<br>
+          走る。走る。走る。笑う。<br>
+          たったそれだけのことが、<br>
+          一番の宝物だった日々が、<br>
+          確かにあったんだ。<br>
         </p>
         <button class="sound">音声</button>
         <img src="" alt="" class="img-case">
