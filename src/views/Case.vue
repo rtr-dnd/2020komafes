@@ -48,6 +48,8 @@ h2 {
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
+import { imageUrls } from '../image-urls'
+
 export default {
   name: 'Case',
   components: {
@@ -58,6 +60,9 @@ export default {
     caseName: {
       type: String
     }
+  },
+  mounted: function () {
+    console.log(imageUrls.urban.noon[0])
   },
   computed: {
     caseNameJa: function () {

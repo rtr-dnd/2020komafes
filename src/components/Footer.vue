@@ -25,6 +25,15 @@ footer {
     font-size: 13px;
     text-align: right;
   }
+  @media screen and (max-width: 769px){
+    flex-direction: column;
+    padding: 48px 12px;
+    .copyright {
+      text-align: center;
+      margin: 0;
+      padding-top: 32px;
+    }
+  }
 
   &.green {
     background-color: $green;
