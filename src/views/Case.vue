@@ -29,12 +29,16 @@
         <p>あなたの帰り道で生成されたポストカードをシェアしよう</p>
       </div>
     </section>
-    <Footer></Footer>
+    <Footer v-bind:color="theme"></Footer>
   </div>
 </template>
 
 <style lang="scss" scoped>
+@import "../assets/variables.scss";
 
+h2 {
+  color: $green;
+}
 </style>
 
 <script>
@@ -63,6 +67,18 @@ export default {
           return '田舎'
         default:
           return 'このページは存在しません'
+      }
+    },
+    theme: function () {
+      switch (this.caseName) {
+        case 'urban':
+          return 'purple'
+        case 'resid':
+          return 'pink'
+        case 'country':
+          return 'green'
+        default:
+          return ''
       }
     }
   }
