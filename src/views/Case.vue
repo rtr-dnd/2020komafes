@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrap">
     <Header></Header>
     <h1>{{caseNameJa}}</h1>
     <section class="one">
@@ -36,6 +36,9 @@
 <style lang="scss" scoped>
 @import "../assets/variables.scss";
 
+.wrap {
+  min-height: 100vh;
+}
 h2 {
   color: $green;
 }

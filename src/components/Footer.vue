@@ -1,6 +1,8 @@
 <template>
   <footer v-bind:class="[color]">
-    <img src="" alt="" class="logo">
+    <img v-if="color === 'green'" src="../assets/dp9logo-green.svg" alt="" class="logo">
+    <img v-if="color === 'pink'" src="../assets/dp9logo-pink.svg" alt="" class="logo">
+    <img v-if="color === 'purple'" src="../assets/dp9logo-purple.svg" alt="" class="logo">
     <p class="copyright">
       Copyright (C) designing plus nine. All Rights Reserved.
     </p>
@@ -11,6 +13,19 @@
 @import "../assets/variables.scss";
 
 footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 48px 64px;
+  img {
+    display: block;
+    height: 40px;
+  }
+  .copyright {
+    font-size: 13px;
+    text-align: right;
+  }
+
   &.green {
     background-color: $green;
     color: $green-text;
@@ -24,6 +39,7 @@ footer {
     color: $pink-text;
   }
 }
+
 </style>
 
 <script>
