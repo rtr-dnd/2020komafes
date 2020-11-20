@@ -69,6 +69,11 @@
           <p>あなたの帰り道で生成されたポストカードをシェアしよう</p>
         </div>
       </section>
+      <a class="back-wrap" href="/">
+        <button v-bind:class="theme" class="back">
+          トップに戻る
+        </button>
+      </a>
     </div>
     <Footer v-bind:color="theme"></Footer>
   </div>
@@ -261,6 +266,53 @@ h2 {
   align-items: center;
 }
 
+.back-wrap {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+button.back {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 2px solid;
+  box-shadow: none;
+  padding: 16px 40px;
+  &.purple {
+    background-color: transparent;
+    color: $purple-text;
+    border-color: $purple-text;
+    &:hover {
+      background-color: $purple-text;
+      color: $purple;
+    }
+  }
+  &.pink {
+    background-color: transparent;
+    color: $pink-text;
+    border-color: $pink-text;
+    &:hover {
+      background-color: $pink-text;
+      color: $pink;
+    }
+  }
+  &.green {
+    background-color: transparent;
+    color: $green-text;
+    border-color: $green-text;
+    &:hover {
+      background-color: $green-text;
+      color: $green;
+    }
+  }
+}
+
 </style>
 
 <script>
@@ -281,6 +333,8 @@ export default {
     }
   },
   mounted: function () {
+    console.log(this.caseName)
+    console.log(this.isNight)
     console.log(imageUrls.urban.noon[0])
   },
   data: function () {

@@ -31,7 +31,7 @@
           たったひとつ楽しみがあるだけで、<br>
           こんなに足取りの軽くなる、黄金色の世界。<br>
         </p>
-        <div class="sound">
+        <div class="sound" v-on:click="play(1)" v-bind:class="[isPlayingAudio === 1 ? 'playing' : '']">
           <img src="../assets/icons/sound-purple.svg" alt="">
         </div>
       </div>
@@ -53,7 +53,7 @@
           見慣れた制服。<br>
           そっか、君たちが私の後輩なんだね。<br>
         </p>
-        <div class="sound">
+        <div class="sound" v-on:click="play(2)" v-bind:class="[isPlayingAudio === 2 ? 'playing' : '']">
           <img src="../assets/icons/sound-pink.svg" alt="">
         </div>
       </div>
@@ -76,7 +76,7 @@
           一番の宝物だった日々が、<br>
           確かにあったんだ。<br>
         </p>
-        <div class="sound">
+        <div class="sound" v-on:click="play(3)" v-bind:class="[isPlayingAudio === 3 ? 'playing' : '']">
           <img src="../assets/icons/sound-green.svg" alt="">
         </div>
       </div>
@@ -87,6 +87,9 @@
       </a>
       <div class="bar"></div>
     </section>
+    <audio id="audio" v-if="isPlayingAudio !== 0">
+      <source :src="require('../assets/audio/' + audioName + '.mp3')">
+    </audio>
     <Footer color='green'></Footer>
   </div>
 </template>
@@ -101,6 +104,41 @@ export default {
   components: {
     Header,
     Footer
+  },
+  data: function () {
+    return {
+      isPlayingAudio: 0 // 0: stop, 1: urban, 2: resid, 3: country
+    }
+  },
+  methods: {
+    play: function (value) {
+      if (this.isPlayingAudio === value) {
+        this.isPlayingAudio = 0
+        document.getElementById('audio').pause()
+      } else {
+        if (document.getElementById('audio')) {
+          document.getElementById('audio').pause()
+        }
+        this.isPlayingAudio = value
+        this.$nextTick(() => {
+          document.getElementById('audio').play()
+        })
+      }
+    }
+  },
+  computed: {
+    audioName: function () {
+      switch (this.isPlayingAudio) {
+        case 1:
+          return 'oto_tokai_afternoon'
+        case 2:
+          return 'oto_jutaku_afternoon'
+        case 3:
+          return 'oto_inaka_afternoon'
+        default:
+          return ''
+      }
+    }
   }
 }
 </script>
@@ -223,8 +261,12 @@ section.case {
     }
     .sound {
       padding-top: 32px;
+      opacity: 0.4;
       img {
         width: 32px;
+      }
+      &.playing {
+        opacity: 1.0;
       }
     }
     @media screen and (max-width: 768px){
@@ -275,9 +317,6 @@ section.case {
         padding: 0;
         img {
           width: 48px;
-        }
-        &:hover {
-          opacity: 0.4;
         }
       }
     }
