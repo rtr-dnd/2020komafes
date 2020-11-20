@@ -59,14 +59,14 @@
         <h2 class="eng">STEP 2</h2>
         <div class="share-row">
           <a class="twitter"
-            href="http://twitter.com/intent/tweet?text=このサイトの診断面白いよ！%20https://pbs.twimg.com/media/EnMUBLNUcAA6wV6?format=jpg" rel="nofollow" target="_blank" title="Twitterで共有">
+            :href="tweetHref" rel="nofollow" target="_blank" title="Twitterで共有">
             <div class="twitter">
               <img v-if="theme === 'purple'" src="../assets/icons/twitter-purple.svg" alt="">
               <img v-if="theme === 'pink'" src="../assets/icons/twitter-pink.svg" alt="">
               <img v-if="theme === 'green'" src="../assets/icons/twitter-green.svg" alt="">
             </div>
+            <p>あなたの帰り道で生成されたポストカードをシェアしよう</p>
           </a>
-          <p>あなたの帰り道で生成されたポストカードをシェアしよう</p>
         </div>
       </section>
       <a class="back-wrap" href="/">
@@ -198,8 +198,13 @@ h2 {
       width: 48px;
     }
   }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
   p {
     margin-left: 16px;
+    color: inherit;
   }
   @media screen and (max-width: 769px){
     width: 100%;
@@ -361,7 +366,6 @@ export default {
       } else {
         this.peopleNum--
       }
-      console.log(this.peopleNum)
     },
     increasePeople: function (event) {
       if (this.peopleNum === -1) {
@@ -371,7 +375,6 @@ export default {
       } else {
         this.peopleNum++
       }
-      console.log(this.peopleNum)
     },
     changeTime: function (event) {
       this.isNight = !this.isNight
@@ -381,6 +384,27 @@ export default {
     }
   },
   computed: {
+    tweetHref: function () {
+      let temp
+      switch (this.caseName) {
+        case 'urban':
+          temp = imageUrls.urban
+          break
+        case 'resid':
+          temp = imageUrls.resid
+          break
+        default:
+          temp = imageUrls.country
+      }
+      temp = this.isNight ? temp.night : temp.noon
+      if (temp[this.peopleNum - this.peopleMin]) {
+        return 'http://twitter.com/intent/tweet?text=いっしょにかえろう。かつての『かえりみち』をカスタムしてみました！あなたも自分の帰り道を作ってみませんか？%20' + temp[this.peopleNum - this.peopleMin].toString() +
+        '&via=DP9_Official&hashtags=駒場祭'
+      } else {
+        return ''
+      }
+      // return this.peopleNum
+    },
     peopleMax: function () {
       switch (this.caseName) {
         case 'urban':
