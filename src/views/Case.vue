@@ -7,15 +7,18 @@
         <h2 class="eng">STEP 1</h2>
         <div class="upper-img">
           <p>{{caseNameJa}}での帰り道をカスタマイズしよう</p>
-          <div v-if="theme === 'green'" class="sound">
+          <div v-on:click="play" v-bind:class="[isPlayingAudio ? 'playing' : '']" v-if="theme === 'green'" class="sound">
             <img src="../assets/icons/sound-green.svg" alt="">
           </div>
-          <div v-if="theme === 'pink'" class="sound">
+          <div v-on:click="play" v-bind:class="[isPlayingAudio ? 'playing' : '']" v-if="theme === 'pink'" class="sound">
             <img src="../assets/icons/sound-pink.svg" alt="">
           </div>
-          <div v-if="theme === 'purple'" class="sound">
+          <div v-on:click="play" v-bind:class="[isPlayingAudio ? 'playing' : '']" v-if="theme === 'purple'" class="sound">
             <img src="../assets/icons/sound-purple.svg" alt="">
           </div>
+          <audio id="audio">
+            <source :src="require('../assets/audio/' + audioName + '.mp3')">
+          </audio>
         </div>
         <div class="img-wrap">
           <div class="img-area" v-bind:class="[theme, isNight ? 'night' : '']"></div>
@@ -55,11 +58,14 @@
       <section class="two">
         <h2 class="eng">STEP 2</h2>
         <div class="share-row">
-          <div class="twitter">
-            <img v-if="theme === 'purple'" src="../assets/icons/twitter-purple.svg" alt="">
-            <img v-if="theme === 'pink'" src="../assets/icons/twitter-pink.svg" alt="">
-            <img v-if="theme === 'green'" src="../assets/icons/twitter-green.svg" alt="">
-          </div>
+          <a class="twitter"
+            href="http://twitter.com/intent/tweet?text=このサイトの診断面白いよ！%20https://pbs.twimg.com/media/EnMUBLNUcAA6wV6?format=jpg" rel="nofollow" target="_blank" title="Twitterで共有">
+            <div class="twitter">
+              <img v-if="theme === 'purple'" src="../assets/icons/twitter-purple.svg" alt="">
+              <img v-if="theme === 'pink'" src="../assets/icons/twitter-pink.svg" alt="">
+              <img v-if="theme === 'green'" src="../assets/icons/twitter-green.svg" alt="">
+            </div>
+          </a>
           <p>あなたの帰り道で生成されたポストカードをシェアしよう</p>
         </div>
       </section>
@@ -120,6 +126,10 @@ h2 {
   }
   .sound {
     width: 32px;
+    opacity: 0.4;
+    &.playing {
+      opacity: 1.0;
+    }
   }
   @media screen and (max-width: 769px){
     width: 100%;
@@ -276,10 +286,19 @@ export default {
   data: function () {
     return {
       isNight: false,
-      peopleNum: -1
+      peopleNum: -1,
+      isPlayingAudio: false
     }
   },
   methods: {
+    play: function () {
+      if (this.isPlayingAudio) {
+        document.getElementById('audio').pause()
+      } else {
+        document.getElementById('audio').play()
+      }
+      this.isPlayingAudio = !this.isPlayingAudio
+    },
     decreasePeople: function (event) {
       if (this.peopleNum === -1) {
         this.peopleNum = this.peopleMin
@@ -303,6 +322,8 @@ export default {
     changeTime: function (event) {
       this.isNight = !this.isNight
       this.peopleNum = this.peopleMin
+      document.getElementById('audio').pause()
+      this.isPlayingAudio = false
     }
   },
   computed: {
@@ -366,6 +387,30 @@ export default {
           return 'hito_jutaku_' + this.peopleNum
         case 'country':
           return 'hito_inaka_' + this.peopleNum
+        default:
+          return ''
+      }
+    },
+    audioName: function () {
+      switch (this.caseName) {
+        case 'urban':
+          if (!this.isNight) {
+            return 'oto_tokai_afternoon'
+          } else {
+            return 'oto_tokai_night'
+          }
+        case 'resid':
+          if (!this.isNight) {
+            return 'oto_jutaku_afternoon'
+          } else {
+            return 'oto_jutaku_night'
+          }
+        case 'country':
+          if (!this.isNight) {
+            return 'oto_inaka_afternoon'
+          } else {
+            return 'oto_inaka_night'
+          }
         default:
           return ''
       }
