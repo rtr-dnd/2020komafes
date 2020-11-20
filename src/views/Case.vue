@@ -1,6 +1,5 @@
 <template>
   <div class="wrap" v-bind:class="theme">
-    <Header></Header>
     <div class="body">
       <h1>{{caseNameJa}}</h1>
       <section class="one">
@@ -321,7 +320,6 @@ button.back {
 </style>
 
 <script>
-import Header from '../components/Header'
 import Footer from '../components/Footer'
 
 import { imageUrls } from '../image-urls'
@@ -329,7 +327,6 @@ import { imageUrls } from '../image-urls'
 export default {
   name: 'Case',
   components: {
-    Header,
     Footer
   },
   props: {

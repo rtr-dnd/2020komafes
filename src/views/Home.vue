@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <Header />
     <section class="fv">
       <div class="fv-logo"></div>
     </section>
@@ -96,13 +95,11 @@
 
 <script>
 // @ is an alias to /src
-import Header from '../components/Header'
 import Footer from '../components/Footer'
 
 export default {
   name: 'Home',
   components: {
-    Header,
     Footer
   },
   data: function () {
