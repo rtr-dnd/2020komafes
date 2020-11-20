@@ -18,17 +18,18 @@
           </div>
         </div>
         <div class="img-wrap">
-          <div class="img-area" v-bind:class="theme"></div>
+          <div class="img-area" v-bind:class="[theme, isNight ? 'night' : '']"></div>
+          <img v-if="peopleNum !== -1" :src="require('../assets/people/' + imgName + '.png')" class="img-overlay" v-bind:class="[theme]">
         </div>
         <div class="under-img">
           <div class="people">
-            <button class="arrow-left">
+            <button class="arrow-left" v-on:click="decreasePeople">
               <img v-if="theme === 'purple'" src="../assets/icons/purple-left.svg" alt="">
               <img v-if="theme === 'pink'" src="../assets/icons/pink-left.svg" alt="">
               <img v-if="theme === 'green'" src="../assets/icons/green-left.svg" alt="">
             </button>
             <p class="mobile">人数を変える</p>
-            <button class="arrow-right">
+            <button class="arrow-right" v-on:click="increasePeople">
               <img v-if="theme === 'purple'" src="../assets/icons/purple-right.svg" alt="">
               <img v-if="theme === 'pink'" src="../assets/icons/pink-right.svg" alt="">
               <img v-if="theme === 'green'" src="../assets/icons/green-right.svg" alt="">
@@ -37,13 +38,13 @@
           </div>
           <div class="time">
             <p class="pc">時間帯を変える</p>
-            <button class="arrow-left">
+            <button class="arrow-left" v-on:click="changeTime">
               <img v-if="theme === 'purple'" src="../assets/icons/purple-left.svg" alt="">
               <img v-if="theme === 'pink'" src="../assets/icons/pink-left.svg" alt="">
               <img v-if="theme === 'green'" src="../assets/icons/green-left.svg" alt="">
             </button>
             <p class="mobile">時間帯を変える</p>
-            <button class="arrow-right">
+            <button class="arrow-right" v-on:click="changeTime">
               <img v-if="theme === 'purple'" src="../assets/icons/purple-right.svg" alt="">
               <img v-if="theme === 'pink'" src="../assets/icons/pink-right.svg" alt="">
               <img v-if="theme === 'green'" src="../assets/icons/green-right.svg" alt="">
@@ -206,21 +207,44 @@ h2 {
   right: 0;
   bottom: 0;
   margin: 0 auto;
-  // height: 640px;
-  background-image: url(../assets/images/back_city_afternoon.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   border-radius: 12px;
   &.purple {
     border: 2px solid $purple-text;
+    background-image: url(../assets/images/back_city_afternoon.png);
+    &.night {
+      background-image: url(../assets/images/back_city_night.png);
+    }
   }
   &.pink {
     border: 2px solid $pink-text;
+    background-image: url(../assets/images/back_residental_afternoon.png);
+    &.night {
+      background-image: url(../assets/images/back_residental_night.png);
+    }
   }
   &.green {
     border: 2px solid $green-text;
+    background-image: url(../assets/images/back_inaka_afternoon.png);
+    &.night {
+      background-image: url(../assets/images/back_inaka_night.png);
+    }
   }
+}
+.img-overlay {
+  display: block;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  position: absolute;
+  z-index: 1;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  margin: 0 auto;
+  object-fit: cover;
 }
 .share-row {
   display: flex;
@@ -249,7 +273,103 @@ export default {
   mounted: function () {
     console.log(imageUrls.urban.noon[0])
   },
+  data: function () {
+    return {
+      isNight: false,
+      peopleNum: -1
+    }
+  },
+  methods: {
+    decreasePeople: function (event) {
+      if (this.peopleNum === -1) {
+        this.peopleNum = this.peopleMin
+      } else if (this.peopleNum <= this.peopleMin) {
+        this.peopleNum = this.peopleMax
+      } else {
+        this.peopleNum--
+      }
+      console.log(this.peopleNum)
+    },
+    increasePeople: function (event) {
+      if (this.peopleNum === -1) {
+        this.peopleNum = this.peopleMin
+      } else if (this.peopleNum >= this.peopleMax) {
+        this.peopleNum = this.peopleMin
+      } else {
+        this.peopleNum++
+      }
+      console.log(this.peopleNum)
+    },
+    changeTime: function (event) {
+      this.isNight = !this.isNight
+      this.peopleNum = this.peopleMin
+    }
+  },
   computed: {
+    peopleMax: function () {
+      switch (this.caseName) {
+        case 'urban':
+          if (!this.isNight) {
+            return 7
+          } else {
+            return 6
+          }
+        case 'resid':
+          if (!this.isNight) {
+            return 5
+          } else {
+            return 10
+          }
+        case 'country':
+          if (!this.isNight) {
+            return 8
+          } else {
+            return 13
+          }
+        default:
+          return 1
+      }
+    },
+    peopleMin: function () {
+      switch (this.caseName) {
+        case 'urban':
+          if (!this.isNight) {
+            return 1
+          } else {
+            return 1
+          }
+        case 'resid':
+          if (!this.isNight) {
+            return 1
+          } else {
+            return 6
+          }
+        case 'country':
+          if (!this.isNight) {
+            return 2
+          } else {
+            return 9
+          }
+        default:
+          return 1
+      }
+    },
+    imgName: function () {
+      switch (this.caseName) {
+        case 'urban':
+          if (!this.isNight) {
+            return 'hito_tokai_' + this.peopleNum
+          } else {
+            return 'hito_tokai_night_' + this.peopleNum
+          }
+        case 'resid':
+          return 'hito_jutaku_' + this.peopleNum
+        case 'country':
+          return 'hito_inaka_' + this.peopleNum
+        default:
+          return ''
+      }
+    },
     caseNameJa: function () {
       switch (this.caseName) {
         case 'urban':
